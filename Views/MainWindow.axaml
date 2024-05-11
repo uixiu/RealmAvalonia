@@ -1,0 +1,45 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:RealmAvalonia.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:realmAvalonia="clr-namespace:RealmAvalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="RealmAvalonia.Views.MainWindow"
+        x:DataType="realmAvalonia:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="RealmAvalonia">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+        to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <realmAvalonia:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button Content="Populate" Command="{Binding PopulateCommand}" />
+        <Button Content="Delete" Command="{Binding RemoveCatCommand}" />
+
+        <ListBox ItemsSource="{Binding  CatsQuery}"
+                 SelectedItem="{Binding SelectedCat, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text ="{Binding Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <DataGrid
+            ItemsSource="{Binding CatsQuery}"
+            SelectedItem="{Binding SelectedCat, Mode=TwoWay}">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Age" Binding="{Binding Age}" />
+                <DataGridTextColumn Header="Breed" Binding="{Binding Breed}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </StackPanel>
+
+</Window>
